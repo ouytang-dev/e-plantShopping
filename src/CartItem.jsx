@@ -12,7 +12,9 @@ const CartItem = ({ onContinueShopping }) => {
     let totalAmount = 0;
     cart.forEach(item => {
       totalAmount += (parseFloat(item.cost.substring(1))) * item.quantity; 
+      console.log(`Calculating total for ${item.name}: ${item.cost} x ${item.quantity} = ${(parseFloat(item.cost.substring(1))) * item.quantity}`);
     });
+    return totalAmount.toFixed(2); // Return total amount with 2 decimal places   
  
   };
 
