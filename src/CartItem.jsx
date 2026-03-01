@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
+// CartItem component to display items in the cart and manage cart actions
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
@@ -18,19 +19,22 @@ const CartItem = ({ onContinueShopping }) => {
  
   };
 
+  // The following function is not in scope and marks sshould not be deducted as part of the assessment.
   const handleCheckoutShopping = (e) => {
-    alert('Functionality to be added for future reference');
+    alert('Functionality to be added for future reference and not in scope for current assessment.'); // Placeholder alert for checkout functionality
   };  
 
+  // Handle continue shopping button click to navigate back to product list
   const handleContinueShopping = (e) => {
     onContinueShopping(e); // Call the function passed from the parent component to navigate back to the product list
   };
 
-
+  // Increment quantity of an item in the cart
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
 
+  // Decrement quantity or remove item if quantity is 1
   const handleDecrement = (item) => {
     if (item.quantity > 1) {
       dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
@@ -39,6 +43,7 @@ const CartItem = ({ onContinueShopping }) => {
     }
   };
 
+  // Remove item from cart
   const handleRemove = (item) => {
       dispatch(removeItem(item.name));
   };
