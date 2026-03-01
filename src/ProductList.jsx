@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});  // State to track added plants to the cart
     const dispatch = useDispatch();
-    const cart = useSelector(state => state.cart.items);
 
     const plantsArray = [
         {
@@ -260,6 +260,12 @@ function ProductList({ onHomeClick }) {
 
     const handleAddToCart = (product) => {
         dispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
+
+        setAddedToCart((prevState) => ({ // Update the local state to reflect that the product has been added
+            ...prevState, // Spread the previous state to retain existing entries
+            [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
+
+        }));
     };
 
     return (
@@ -301,13 +307,9 @@ function ProductList({ onHomeClick }) {
                         {/* Display other plant details like description and cost */}
                         <div className="product-description">{plant.description}</div> {/* Display plant description */}
                         <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
-                        {
-                          /* determine if quantity > 1 for this plant */
-                        }
                         <button
                             className="product-button"
                             onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
-                            disabled={cart.find((item) => item.name === plant.name)?.quantity > 1}
                         >
                             Add to Cart
                         </button>
